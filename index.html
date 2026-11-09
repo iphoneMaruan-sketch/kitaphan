@@ -8060,7 +8060,7 @@ async function onAuth(){const my=++authSeq,u=window.FB&&FB.user;
   if(!banned){try{const sn=await F.getDoc(F.doc(FB.db,'teachers',em));if(sn.exists()){if((sn.data()||{}).role==='tester')tester=true;else teach=true}}catch(e){}}}
  if(my!==authSeq)return;
  if(banned){FU=null;TEACH=false;DEV=false;TESTER=false;gateShow('banned');return}
- FU=u;DEV=isDev;TEACH=teach;TESTER=tester;try{tester?localStorage.setItem('shy_tester','1'):localStorage.removeItem('shy_tester')}catch(e){}
+ FU=u;DEV=isDev;TEACH=teach;TESTER=tester||isDev;try{(tester||isDev)?localStorage.setItem('shy_tester','1'):localStorage.removeItem('shy_tester')}catch(e){}
  if(DEV)Object.assign(REASON,{gaze:'Долго смотрел в сторону',dup:'Вход с другого устройства',shot:'Попытка скриншота',switch:'Ушёл на другую вкладку/приложение',noface:'Лицо не видно в камере',multi:'В камере несколько человек',cam:'Камера отключилась',exit:'Вышел из теста',reload:'Страница закрыта/перезагружена'});
  if(S.uid!==u.uid){S={id:u.uid,uid:u.uid,name:'',t:{}};ST(K.R,'[]')}
  S.id=u.uid;S.uid=u.uid;S.name=(u.displayName||u.email||'Оқушы').slice(0,40);save();$('#nm').value=S.name;
